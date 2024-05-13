@@ -27,6 +27,7 @@ checkBtn.classList.add('editButton');
 let editBtn = document.createElement('i');
 editBtn.classList.add('fa-solid');
 editBtn.classList.add('fa-pen-to-square');
+editBtn.classList.add('editbutton');
 let deletBtn = document.createElement('i');
 deletBtn.classList.add('fa-solid');
 deletBtn.classList.add('fa-trash');
@@ -37,18 +38,26 @@ allActionBtns.appendChild(deletBtn);
 let listNode = document.querySelector(".list_node");
 listNode.appendChild(list_el)
 checkBtn.onclick = ()=>{
-    console.log('check');
-    if(checkBtn.classList.contains('editButton')){
-        creatSpan.classList.add('line')
-    }else{
-        creatSpan.classList.remove('line');
-        creatSpan.classList.remove('line');
-
+        console.log('mark as an checked and remove buttons');
+        creatSpan.classList.add('line');
+        lists.removeChild(allActionBtns);
     }
+    editBtn.onclick=()=>{
+        if(editBtn.classList.contains('editbutton')){
+            creatSpan.removeAttribute('readonly');
+            editBtn.classList.remove('fa-solid');
+            editBtn.classList.remove('fa-pen-to-square');
+            editBtn.classList.add('fas');
+            editBtn.classList.add('fa-save');
+        }else{
+            creatSpan.setAttributeAttribute('readonly', true); 
+        }
+    }
+
 }
 
 
-}
+
 
 
 
