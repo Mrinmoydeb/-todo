@@ -40,6 +40,10 @@ checkBtn.onclick = ()=>{
     console.log('check');
     if(checkBtn.classList.contains('editButton')){
         creatSpan.classList.add('line')
+    }else{
+        creatSpan.classList.remove('line');
+        creatSpan.classList.remove('line');
+
     }
 }
 
