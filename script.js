@@ -13,6 +13,7 @@ let creatSpan = document.createElement('span');
 creatSpan.textContent = userInputs;
 lists.appendChild(creatSpan);
 let allActionBtns = document.createElement('span');
+allActionBtns.classList.add('btngrp');
 lists.appendChild(allActionBtns);
 
 

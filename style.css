@@ -55,3 +55,24 @@ li{
 h1{
     text-align: center;
 }
+.btngrp{
+    display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btngrp i{
+  background: white;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.btngrp i:first-child{
+color: rgb(134, 134, 245);;
+}
+.btngrp i:last-child{
+    color: red;
+}
+.btngrp i:nth-child(2){
+    color: rgb(234, 191, 22);
+}
+
