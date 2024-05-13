@@ -75,4 +75,9 @@ color: rgb(134, 134, 245);;
 .btngrp i:nth-child(2){
     color: rgb(234, 191, 22);
 }
-
+.inputvalBox{
+    background: rgb(166, 245, 166);;
+}
+.line{
+    text-decoration: line-through;
+}
