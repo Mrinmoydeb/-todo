@@ -81,3 +81,19 @@ color: rgb(134, 134, 245);;
 .line{
     text-decoration: line-through;
 }
+.child1{
+    display: flex;
+  gap: .5rem;
+}
+.child2{
+    display: flex;
+    gap: .8rem;
+}
+
+input[type='checkbox']{
+    width: 20px;
+}
+.id{
+    font-size: 18px;
+    font-weight: bolder;
+}
