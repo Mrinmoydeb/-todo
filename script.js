@@ -1,79 +1,66 @@
-// access input field
-const input = document.querySelector('#todo-input');
+let userInfo = document.querySelector(".inputbox input");
+let addItem = document.querySelector(".inputbox button");
+let completed = document.querySelector('child1 input');
+let list = document.querySelector(".list");
+let list_Of_Items = [];
+let empty_id = null;
+let objStr = localStorage.getItem("items");
+list_Of_Items = JSON.parse(objStr);
 
-// Listening to click event from "Add" button.
-document.querySelector('#submit').addEventListener('click', () => {
-  // value of the input field
-  const inputData = input.value;
-  input.value = "";
-
-  // creating todo item element
-  const todo_el = document.createElement('div');
-  todo_el.classList.add('todo-item');
-
-  const todo_content_el = document.createElement('div');
-  todo_el.appendChild(todo_content_el);
-
-  const todo_input_el = document.createElement('input');
-  todo_input_el.classList.add('text');
-  todo_input_el.type = 'text';
-  todo_input_el.value = inputData;
-  todo_input_el.setAttribute('readonly', 'readonly');
-
-  todo_content_el.appendChild(todo_input_el);
-
-  const todo_actions_el = document.createElement('div');
-  todo_actions_el.classList.add('action-items');
-
-  const todo_done_el = document.createElement('i');
-  todo_done_el.classList.add('fa-solid');
-  todo_done_el.classList.add('fa-check');
-
-  const todo_edit_el = document.createElement('i');
-  todo_edit_el.classList.add('fa-solid');
-  todo_edit_el.classList.add('fa-pen-to-square');
-  todo_edit_el.classList.add('edit');
-
-  const todo_delete_el = document.createElement('i');
-  todo_delete_el.classList.add('fa-solid');
-  todo_delete_el.classList.add('fa-trash');
-
-  todo_actions_el.appendChild(todo_done_el)
-  todo_actions_el.appendChild(todo_edit_el);
-  todo_actions_el.appendChild(todo_delete_el);
-
-  todo_el.appendChild(todo_actions_el);
-  console.log(todo_el)
-  // add the todo-item to lists
-  document.querySelector('.todo-lists').appendChild(todo_el);
-
-  // done functionality
-  todo_done_el.addEventListener('click', () => {
-    todo_input_el.classList.add('done')
-    todo_el.removeChild(todo_actions_el);
-  })
-
-  // edit functionality
-  todo_edit_el.addEventListener('click', (e) => {
-    if (todo_edit_el.classList.contains("edit")) {
-      todo_edit_el.classList.remove("edit");
-      todo_edit_el.classList.remove("fa-pen-to-square");
-      todo_edit_el.classList.add("fa-x");
-      todo_edit_el.classList.add("save");
-      todo_input_el.removeAttribute("readonly");
-      todo_input_el.focus();
+addItem.onclick = () => {
+    let userVal = userInfo.value.trim();
+    if (empty_id != null) {
+        list_Of_Items.splice(empty_id, 1, { name: userVal });
+        empty_id = null;
+        addItem.innerText = 'Add'
     } else {
-      todo_edit_el.classList.remove("save");
-      todo_edit_el.classList.remove("fa-x");
-      todo_edit_el.classList.add("fa-pen-to-square");
-      todo_edit_el.classList.add("edit");
-      todo_input_el.setAttribute("readonly", "readonly");
+        list_Of_Items.push({ name: userVal });
     }
-  });
+    saveItem(list_Of_Items);
+    displayItem();
+    userInfo.value = "";
+}
 
-  // delete functionality
-  todo_delete_el.addEventListener('click', (e) => {
-    console.log(todo_el);
-    document.querySelector('.todo-lists').removeChild(todo_el);
-  });
-})
+completed.forEach(element => {
+    element.onchange = (e) => {
+        if (e.target==checked) {
+            e.classList.add(done);
+        }
+    }
+    
+});
+
+function saveItem(list_Of_Items) {
+    let str = JSON.stringify(list_Of_Items);
+    localStorage.setItem("items", str);
+}
+
+function displayItem() {
+    let storeList = "";
+    list_Of_Items.forEach((li, id) => {
+        storeList += `<li>
+        <div class="child1">
+           <span>${id + 1}</span>
+          <input type="checkbox" />
+          <span class="done">${li.name}</span>
+        </div>
+        <div class="child2">
+          <span class="dlt" onclick="editItem(${id})">Edit</span>
+          <span class="dlt" onclick="deleteItem(${id})">Delete</span>
+        </div>
+      </li>`
+    })
+    list.innerHTML = storeList;
+}
+
+function editItem(id) {
+    empty_id = id;
+    userInfo.value = list_Of_Items[id].name;
+    addItem.innerText = 'Save'
+}
+
+function deleteItem(id) {
+    list_Of_Items.splice(id, 1);
+    saveItem(list_Of_Items);
+    displayItem();
+}
